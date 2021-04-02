@@ -4,6 +4,7 @@ from django.db import models
 class User(models.Model):
     user_profile = models.CharField(max_length=200)
     followed = models.BooleanField(default=False)
+    ignore = models.BooleanField(default=False)
     must_follow = models.BooleanField(default=False)
     must_like = models.BooleanField(default=False)
     must_rt = models.BooleanField(default=False)
@@ -11,6 +12,10 @@ class User(models.Model):
 
     def __str__(self):
         return "User: " + self.user_profile
+
+    def save(self, *args, **kwargs):
+        self.user_profile = self.user_profile.lower()
+        return super(User, self).save(*args, **kwargs)
 
 
 class Tweet(models.Model):

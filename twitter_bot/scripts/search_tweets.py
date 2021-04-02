@@ -37,8 +37,8 @@ def run():
         f"Query: must_like {len(topic_queries_to_like)}, must_retweet {len(topics_queries_to_retweet)}"
     )
 
-    topics_tweets_to_like = bot.search_twits(topic_queries_to_like)
-    topics_tweets_to_retweet = bot.search_twits(topics_queries_to_retweet)
+    topics_tweets_to_like = bot.search_tweets(topic_queries_to_like)
+    topics_tweets_to_retweet = bot.search_tweets(topics_queries_to_retweet)
 
     print(
         f"Tweets: must_like {len(topics_tweets_to_like)}, must_retweet {len(topics_tweets_to_retweet)}"

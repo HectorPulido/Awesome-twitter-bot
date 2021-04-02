@@ -23,7 +23,7 @@ class TwitterBot:
     def sent_twit(self, twit_text):
         self.api.update_status(twit_text)
 
-    def search_twits(self, queries, ignore_rt=True):
+    def search_tweets(self, queries, ignore_rt=True):
         twits = []
         for query in queries:
             tweets = self.api.search(query, result_type="recent", lang="es")
@@ -34,6 +34,10 @@ class TwitterBot:
                 user = User.objects.get_or_create(
                     user_profile=tweet.author.screen_name
                 )[0]
+
+                if user.ignore:
+                    continue
+
                 twit = Tweet.objects.get_or_create(
                     tweet_id=tweet.id,
                     text=tweet.text,

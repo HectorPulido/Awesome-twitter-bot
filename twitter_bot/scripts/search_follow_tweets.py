@@ -21,8 +21,8 @@ def run():
     queries_retweet = bot.build_queries_user_has_link(must_retweet, True)
     print(f"Query: must_like {len(queries_like)}, must_retweet {len(queries_retweet)}")
 
-    tweets_to_like = bot.search_twits(queries_like)
-    tweets_to_retweet = bot.search_twits(queries_retweet)
+    tweets_to_like = bot.search_tweets(queries_like)
+    tweets_to_retweet = bot.search_tweets(queries_retweet)
     print(
         f"Tweets: must_like {len(tweets_to_like)}, must_retweet {len(tweets_to_retweet)}"
     )
