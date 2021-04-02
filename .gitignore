@@ -2,3 +2,6 @@ secret.py
 __pycache__
 .vscode
 venv
+*.pyc
+env/
+db.sqlite3
