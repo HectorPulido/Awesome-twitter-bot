@@ -1,13 +1,18 @@
 from django.contrib import admin
 
-from . import models
+from .models import Topic, Keyword, User, Tweet
+from .mixins import ExportCsvMixin
 
 
 class TopicAdmin(admin.ModelAdmin):
     filter_horizontal = ("keywords",)
 
 
-admin.site.register(models.Topic, TopicAdmin)
-admin.site.register(models.Keyword)
-admin.site.register(models.User)
-admin.site.register(models.Tweet)
+class TweetsAdmin(admin.ModelAdmin, ExportCsvMixin):
+    actions = ["export_as_csv_response"]
+
+
+admin.site.register(Topic, TopicAdmin)
+admin.site.register(Keyword)
+admin.site.register(User)
+admin.site.register(Tweet, TweetsAdmin)
