@@ -10,7 +10,7 @@ class TopicsAdmin(admin.ModelAdmin):
 
 
 class TweetsAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_display = ("text", "user", "retweeted", "liked", "go_to_tweet")
+    list_display = ("retweeted", "liked", "go_to_tweet")
     list_filter = (
         "text",
         "retweeted",
