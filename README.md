@@ -25,13 +25,13 @@ This is a heroku based project
 2. Configure the environment variables from the heroku settings
 ```
 THIS FROM TWITTER https://developer.twitter.com/en
-CONSUMER_KEY = "nC9waTEqsOxkYu4knDntrEwZY"
-CONSUMER_SECRET = "GTGCCfXBgtRdT6xGeJJZY9vvW0EPKUnZoJdRLTmy1SiJuj6GUa"
-ACCESS_TOKEN = "1377810525845880840-lyv2qHifb5Iaf3qxa4f0d101DoVjXo"
-ACCESS_TOKEN_SECRET = "xJi6KuIajRXnT8AdiYFjiVYR9voGSo03pXgasExPlA0E2"
+CONSUMER_KEY = ""
+CONSUMER_SECRET = ""
+ACCESS_TOKEN = ""
+ACCESS_TOKEN_SECRET = ""
 
 THIS FROM DROPBOX (Optional) https://www.dropbox.com/lp/developers
-ACCESS_TOKEN_DROPBOX="sl.AuPLMZPcqnK0HBe-FG0WowJN_bRQectMgmaBsTAxJI1Yn9HnMWU8hYstrnA9zL60F3c0GQvlnzB7n9QXboW0uw0k04-dV4y6twhKTY4zWzgSo7ARdp0H6OoBBlIq0hYBGeLYUxY"
+ACCESS_TOKEN_DROPBOX=""
 
 DEBUG = 1
 SECRET_KEY a random string 
