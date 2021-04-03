@@ -32,7 +32,7 @@ class TwitterBot:
                     continue
 
                 user = User.objects.get_or_create(
-                    user_profile=tweet.author.screen_name
+                    user_profile=tweet.author.screen_name.lower()
                 )[0]
 
                 if user.ignore:

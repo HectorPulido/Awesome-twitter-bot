@@ -2,7 +2,7 @@ from django.db import models
 
 
 class User(models.Model):
-    user_profile = models.CharField(max_length=200)
+    user_profile = models.CharField(max_length=200, unique=True, db_index=True)
     followed = models.BooleanField(default=False)
     ignore = models.BooleanField(default=False)
     must_follow = models.BooleanField(default=False)
@@ -11,7 +11,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "User: " + self.user_profile
+        return self.user_profile
 
     def save(self, *args, **kwargs):
         self.user_profile = self.user_profile.lower()
@@ -19,7 +19,7 @@ class User(models.Model):
 
 
 class Tweet(models.Model):
-    tweet_id = models.CharField(max_length=20)
+    tweet_id = models.CharField(max_length=20, unique=True, db_index=True)
     text = models.CharField(max_length=251)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     retweeted = models.BooleanField(default=False)
@@ -27,7 +27,7 @@ class Tweet(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "Tweet: " + self.text
+        return self.text
 
 
 class Keyword(models.Model):
@@ -46,6 +46,6 @@ class Topic(models.Model):
     keywords = models.ManyToManyField(Keyword)
 
     def __str__(self):
-        return "Keyword: " + ", ".join(
+        return "Keywords: " + ", ".join(
             [x[0] for x in self.keywords.values_list("text").all()]
         )
