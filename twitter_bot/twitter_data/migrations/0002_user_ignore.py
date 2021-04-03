@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('twitter_data', '0001_initial'),
+        ("twitter_data", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='ignore',
+            model_name="user",
+            name="ignore",
             field=models.BooleanField(default=False),
         ),
     ]
