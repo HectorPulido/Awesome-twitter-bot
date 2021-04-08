@@ -1,5 +1,5 @@
 import json
-from twitter_data.models import User, Features
+from twitter_data.models import User, Feature
 
 
 def run():
@@ -12,12 +12,8 @@ def run():
     tweets_to_delete = "TWEETS_TO_DELETE"
     tweets_to_delete_data = {"count": 1000}
 
-    Features.objects.create(
-        name=users_to_delete, value=json.dumps(users_to_delete_data)
-    )
-    Features.objects.create(
-        name=users_to_follow, value=json.dumps(users_to_follow_data)
-    )
-    Features.objects.create(
+    Feature.objects.create(name=users_to_delete, value=json.dumps(users_to_delete_data))
+    Feature.objects.create(name=users_to_follow, value=json.dumps(users_to_follow_data))
+    Feature.objects.create(
         name=tweets_to_delete, value=json.dumps(tweets_to_delete_data)
     )

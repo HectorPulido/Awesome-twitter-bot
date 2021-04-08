@@ -1,13 +1,13 @@
 import json
 import dropbox
 
-from twitter_data.models import User, Features
+from twitter_data.models import User, Feature
 from twitter_data.mixins import ExportCsvMixin
 from django.conf import settings
 
 
 def run():
-    feature_config = json.loads(Features.objects.get(name="USERS_TO_DELETE").value)
+    feature_config = json.loads(Feature.objects.get(name="USERS_TO_DELETE").value)
 
     users = User.objects.filter(
         followed=False,

@@ -1,9 +1,9 @@
 import json
-from twitter_data.models import User, Features
+from twitter_data.models import User, Feature
 
 
 def run():
-    feature_config = json.loads(Features.objects.get(name="USERS_TO_FOLLOW").value)
+    feature_config = json.loads(Feature.objects.get(name="USERS_TO_FOLLOW").value)
 
     users = User.objects.filter(
         ignore=False, retweet_count__gte=feature_config.get("min_retweets", 5)

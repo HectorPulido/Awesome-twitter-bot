@@ -53,7 +53,7 @@ class Topic(models.Model):
         )
 
 
-class Features(models.Model):
+class Feature(models.Model):
     name = models.CharField(max_length=100, unique=True, db_index=True)
     value = models.TextField()
 

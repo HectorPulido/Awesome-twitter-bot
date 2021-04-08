@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Features, Topic, Keyword, User, Tweet
+from .models import Feature, Topic, Keyword, User, Tweet
 from .mixins import ExportCsvMixin
 
 
@@ -56,4 +56,4 @@ admin.site.register(Topic, TopicsAdmin)
 admin.site.register(Keyword)
 admin.site.register(User, UsersAdmin)
 admin.site.register(Tweet, TweetsAdmin)
-admin.site.register(Features)
+admin.site.register(Feature)

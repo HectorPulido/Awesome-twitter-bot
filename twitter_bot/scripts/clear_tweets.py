@@ -1,13 +1,13 @@
 import json
 import dropbox
 
-from twitter_data.models import Tweet, Features
+from twitter_data.models import Tweet, Feature
 from twitter_data.mixins import ExportCsvMixin
 from django.conf import settings
 
 
 def run():
-    feature_config = json.loads(Features.objects.get(name="TWEETS_TO_DELETE").value)
+    feature_config = json.loads(Feature.objects.get(name="TWEETS_TO_DELETE").value)
 
     tweets = Tweet.objects.all()
     if len(tweets) < feature_config.get("count", 5000):
