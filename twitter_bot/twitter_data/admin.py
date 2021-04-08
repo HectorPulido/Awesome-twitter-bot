@@ -19,7 +19,7 @@ class TweetsAdmin(admin.ModelAdmin, ExportCsvMixin):
     actions = ["export_as_csv_response"]
 
     def go_to_tweet(self, obj):
-        link = f"https://twitter.com/{obj.user.user_profile}/status/{obj.id}"
+        link = f"https://twitter.com/{obj.user.user_profile}/status/{obj.tweet_id}"
         return mark_safe(f'<a href="{link}" target="blank">link</a>')
 
 
