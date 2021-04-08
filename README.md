@@ -2,7 +2,7 @@
 
 This is a tweepy/django/heroku/heroku-postgres/dropbox based twitter bot, it can follow, search, like, and ignore people from twitter, contains an advance admin to personalize it.
 
-You can follow this bot here: https://twitter.com/PequeninWarior
+You can follow this bot here: https://twitter.com/PequeninWarrior
 
 ## Features
 - Follow/Unfollow, Like, Retweet and Search 
