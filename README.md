@@ -82,6 +82,9 @@ http://<herokuname>.herokuapp.com/admin
 heroku run python manage.py runscript update_following -a <herokuname>
 heroku run python manage.py runscript search_follow_tweets -a <herokuname>
 heroku run python manage.py runscript search_tweets -a <herokuname>
+heroku run python manage.py runscript clear_users -a <herokuname>
+heroku run python manage.py runscript clear_tweets -a <herokuname>
+heroku run python manage.py runscript auto_follow -a <herokuname>
 ```
 
 12. Configure your scheduler with those commands
