@@ -1,16 +1,24 @@
 import json
 import dropbox
 
-from twitter_data.models import Tweet, Features
+from twitter_data.models import User, Features
 from twitter_data.mixins import ExportCsvMixin
 from django.conf import settings
 
 
 def run():
-    feature_config = json.loads(Features.objects.get(name="TWEETS_TO_DELETE").value)
+    feature_config = json.loads(Features.objects.get(name="USERS_TO_DELETE").value)
 
-    tweets = Tweet.objects.all()
-    if len(tweets) < feature_config.get("count", 5000):
+    users = User.objects.filter(
+        followed=False,
+        ignore=False,
+        must_follow=False,
+        must_like=False,
+        must_rt=False,
+        retweet_count__lte=feature_config.get("min_retweets", 5),
+    )
+
+    if len(users) < feature_config.get("count", 5000):
         return
 
     dbx = None
@@ -24,9 +32,9 @@ def run():
         print("Dropbox error, something got wrong")
 
     if dbx:
-        file = ExportCsvMixin.export_as_csv_file(tweets)
+        file = ExportCsvMixin.export_as_csv_file(users)
         with open(file, "rb") as f:
             dbx.files_upload(f.read(), f"/{file}", mute=True)
 
-    print(f"{len(tweets)} tweets deleted")
-    tweets.delete()
+    print(f"{len(users)} users deleted")
+    users.delete()

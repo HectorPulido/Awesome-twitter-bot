@@ -53,7 +53,8 @@ class TwitterBot:
         for tweet in tweets:
             tweet.retweeted = True
             tweet.save()
-
+            tweet.user.retweet_count += 1
+            tweet.user.save()
             try:
                 self.api.retweet(tweet.tweet_id)
                 time.sleep(self.sleep_time)
@@ -64,6 +65,8 @@ class TwitterBot:
         for tweet in tweets:
             tweet.liked = True
             tweet.save()
+            tweet.user.like_count += 1
+            tweet.user.save()
             try:
                 self.api.create_favorite(tweet.tweet_id)
                 time.sleep(self.sleep_time)

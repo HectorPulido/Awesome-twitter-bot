@@ -8,6 +8,8 @@ class User(models.Model):
     must_follow = models.BooleanField(default=False)
     must_like = models.BooleanField(default=False)
     must_rt = models.BooleanField(default=False)
+    like_count = models.IntegerField(default=0)
+    retweet_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -20,7 +22,7 @@ class User(models.Model):
 
 class Tweet(models.Model):
     tweet_id = models.CharField(max_length=20, unique=True, db_index=True)
-    text = models.CharField(max_length=251)
+    text = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     retweeted = models.BooleanField(default=False)
     liked = models.BooleanField(default=False)
@@ -49,3 +51,11 @@ class Topic(models.Model):
         return "Keywords: " + ", ".join(
             [x[0] for x in self.keywords.values_list("text").all()]
         )
+
+
+class Features(models.Model):
+    name = models.CharField(max_length=100, unique=True, db_index=True)
+    value = models.TextField()
+
+    def __str__(self):
+        return self.name
