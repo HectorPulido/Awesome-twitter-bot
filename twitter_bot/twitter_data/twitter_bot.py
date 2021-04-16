@@ -23,10 +23,10 @@ class TwitterBot:
     def sent_twit(self, twit_text):
         self.api.update_status(twit_text)
 
-    def search_tweets(self, queries, ignore_rt=True):
+    def search_tweets(self, queries, ignore_rt=True, result_type="recent", lang="es"):
         twits = []
         for query in queries:
-            tweets = self.api.search(query, result_type="recent", lang="es")
+            tweets = self.api.search(query, result_type=result_type, lang=lang)
             for tweet in tweets:
                 if ignore_rt and tweet.text.startswith("RT"):
                     continue
@@ -59,6 +59,9 @@ class TwitterBot:
                 self.api.retweet(tweet.tweet_id)
                 time.sleep(self.sleep_time)
             except:
+                print(
+                    f"Error retweeting tweet from: {tweet.user.user_profile}, {tweet.text[:20]}"
+                )
                 continue
 
     def like(self, tweets):
@@ -71,6 +74,9 @@ class TwitterBot:
                 self.api.create_favorite(tweet.tweet_id)
                 time.sleep(self.sleep_time)
             except:
+                print(
+                    f"Error liking tweet from: {tweet.user.user_profile}, {tweet.text[:20]}"
+                )
                 continue
 
     def unfollow(self, users):
@@ -86,6 +92,7 @@ class TwitterBot:
                 self.api.destroy_friendship(user_profile)
                 time.sleep(self.sleep_time)
             except:
+                print(f"Error unfollowing: {user.user_profile}")
                 continue
 
     def follow(self, users):
@@ -101,6 +108,7 @@ class TwitterBot:
                 self.api.create_friendship(user_profile)
                 time.sleep(self.sleep_time)
             except:
+                print(f"Error following: {user.user_profile}")
                 continue
 
     def build_queries_user_has_link(self, users, groups, only_links=True):

@@ -1,15 +1,22 @@
+import json
 from django.conf import settings
-from twitter_data.models import User, Topic
+from twitter_data.models import Topic, Feature
 from twitter_data.twitter_bot import TwitterBot
 
 
 def run():
+    feature_config = json.loads(Feature.objects.get(name="TWITTER_CONFIG").value)
+    sleep_time = feature_config.get("sleep_time", 1)
+    search_ignore_rt = feature_config.get("search_ignore_rt", True)
+    result_type = feature_config.get("result_type", "recent")
+    lang = feature_config.get("lang", "es")
+
     bot = TwitterBot(
         settings.CONSUMER_KEY,
         settings.CONSUMER_SECRET,
         settings.ACCESS_TOKEN,
         settings.ACCESS_TOKEN_SECRET,
-        1,
+        sleep_time,
     )
 
     # Tweet search
@@ -37,8 +44,12 @@ def run():
         f"Query: must_like {len(topic_queries_to_like)}, must_retweet {len(topics_queries_to_retweet)}"
     )
 
-    topics_tweets_to_like = bot.search_tweets(topic_queries_to_like)
-    topics_tweets_to_retweet = bot.search_tweets(topics_queries_to_retweet)
+    topics_tweets_to_like = bot.search_tweets(
+        topic_queries_to_like, search_ignore_rt, result_type, lang
+    )
+    topics_tweets_to_retweet = bot.search_tweets(
+        topics_queries_to_retweet, search_ignore_rt, result_type, lang
+    )
 
     print(
         f"Tweets: must_like {len(topics_tweets_to_like)}, must_retweet {len(topics_tweets_to_retweet)}"

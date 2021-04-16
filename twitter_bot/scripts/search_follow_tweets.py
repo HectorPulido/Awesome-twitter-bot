@@ -6,12 +6,15 @@ from twitter_data.models import User, Feature
 
 
 def run():
+    feature_config = json.loads(Feature.objects.get(name="TWITTER_CONFIG").value)
+    sleep_time = feature_config.get("sleep_time", 1)
+
     bot = TwitterBot(
         settings.CONSUMER_KEY,
         settings.CONSUMER_SECRET,
         settings.ACCESS_TOKEN,
         settings.ACCESS_TOKEN_SECRET,
-        1,
+        sleep_time,
     )
 
     feature_config = json.loads(Feature.objects.get(name="SEARCH_FOLLOW_TWEETS").value)
@@ -26,8 +29,12 @@ def run():
     queries_retweet = bot.build_queries_user_has_link(must_retweet, user_groups, True)
     print(f"Query: must_like {len(queries_like)}, must_retweet {len(queries_retweet)}")
 
-    tweets_to_like = bot.search_tweets(queries_like)
-    tweets_to_retweet = bot.search_tweets(queries_retweet)
+    tweets_to_like = bot.search_tweets(
+        queries_like, ignore_rt=True, result_type="mixed", lang=None
+    )
+    tweets_to_retweet = bot.search_tweets(
+        queries_retweet, ignore_rt=True, result_type="mixed", lang=None
+    )
     print(
         f"Tweets: must_like {len(tweets_to_like)}, must_retweet {len(tweets_to_retweet)}"
     )
