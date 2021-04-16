@@ -103,12 +103,11 @@ class TwitterBot:
             except:
                 continue
 
-    def build_queries_user_has_link(self, users, only_links=True):
+    def build_queries_user_has_link(self, users, groups, only_links=True):
         queries = []
         i = 0
-        inc = 5
         while True:
-            users_to_query = users[i * inc : (i + 1) * inc]
+            users_to_query = users[i * groups : (i + 1) * groups]
             if len(users_to_query) == 0:
                 break
 

@@ -1,6 +1,8 @@
+import json
 from django.conf import settings
-from twitter_data.models import User, Topic
+from twitter_data.models import User
 from twitter_data.twitter_bot import TwitterBot
+from twitter_data.models import User, Feature
 
 
 def run():
@@ -12,13 +14,16 @@ def run():
         1,
     )
 
+    feature_config = json.loads(Feature.objects.get(name="SEARCH_FOLLOW_TWEETS").value)
+    user_groups = feature_config.get("groups", 5)
+
     # Users
     must_like = User.objects.filter(must_like=True)
     must_retweet = User.objects.filter(must_rt=True)
     print(f"Database: must_like {len(must_like)}, must_retweet {len(must_retweet)}")
 
-    queries_like = bot.build_queries_user_has_link(must_like, True)
-    queries_retweet = bot.build_queries_user_has_link(must_retweet, True)
+    queries_like = bot.build_queries_user_has_link(must_like, user_groups, True)
+    queries_retweet = bot.build_queries_user_has_link(must_retweet, user_groups, True)
     print(f"Query: must_like {len(queries_like)}, must_retweet {len(queries_retweet)}")
 
     tweets_to_like = bot.search_tweets(queries_like)
