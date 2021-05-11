@@ -13,7 +13,7 @@ def run():
     tweets_to_delete_data = {"count": 1000}
 
     search_follow_tweets = "SEARCH_FOLLOW_TWEETS"
-    search_follow_tweets_data = {"groups": 1}
+    search_follow_tweets_data = {"groups": 1, "select": 10}
 
     twitter_config = "TWITTER_CONFIG"
     twitter_config_data = {
