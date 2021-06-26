@@ -31,6 +31,7 @@ class UsersAdmin(admin.ModelAdmin, ExportCsvMixin):
         "must_follow",
         "must_like",
         "must_rt",
+        "priority",
         "go_to_profile",
     )
     list_editable = (
@@ -38,12 +39,14 @@ class UsersAdmin(admin.ModelAdmin, ExportCsvMixin):
         "must_follow",
         "must_like",
         "must_rt",
+        "priority",
     )
     list_filter = (
         "ignore",
         "must_follow",
         "must_like",
         "must_rt",
+        "priority",
     )
     search_fields = ["user_profile"]
 

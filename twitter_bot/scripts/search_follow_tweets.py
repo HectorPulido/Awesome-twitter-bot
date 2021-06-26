@@ -22,15 +22,24 @@ def run():
     user_to_select = feature_config.get("select", 5)
 
     # Users
-    must_like = User.objects.filter(must_like=True, must_rt=False).order_by("?")[
-        :user_to_select
-    ]
-    must_retweet = User.objects.filter(must_rt=True, must_like=False).order_by("?")[
-        :user_to_select
-    ]
-    must_rt_like = User.objects.filter(must_rt=True, must_like=True).order_by("?")[
-        :user_to_select
-    ]
+    must_like = (
+        User.objects.filter(must_like=True, must_rt=False, priority=True)
+        | User.objects.filter(must_like=True, must_rt=False, priority=False).order_by(
+            "?"
+        )[:user_to_select]
+    )
+    must_retweet = (
+        User.objects.filter(must_like=False, must_rt=True, priority=True)
+        | User.objects.filter(must_rt=True, must_like=False, priority=False).order_by(
+            "?"
+        )[:user_to_select]
+    )
+    must_rt_like = (
+        User.objects.filter(must_like=True, must_rt=True, priority=True)
+        | User.objects.filter(must_rt=True, must_like=True, priority=False).order_by(
+            "?"
+        )[:user_to_select]
+    )
     print(
         f"Database: must_like {len(must_like)}, must_retweet {len(must_retweet)}, must rt + like {len(must_rt_like)}"
     )

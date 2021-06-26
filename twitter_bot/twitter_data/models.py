@@ -10,6 +10,7 @@ class User(models.Model):
     must_rt = models.BooleanField(default=False)
     like_count = models.IntegerField(default=0)
     retweet_count = models.IntegerField(default=0)
+    priority = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
