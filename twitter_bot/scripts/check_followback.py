@@ -30,7 +30,6 @@ def run():
 
     for user in check_follow_back:
         if not bot.check_follow_back(user.user_profile):
-            user.followed = False
             user.must_follow = False
             user.must_like = False
             user.must_rt = False
