@@ -85,7 +85,7 @@ class TwitterBot:
             user.followed = False
             user.save()
 
-            if user_profile.startswith("@"):
+            if not user_profile.startswith("@"):
                 user_profile = f"@{user_profile}"
 
             try:
@@ -148,3 +148,13 @@ class TwitterBot:
         ignore_rt_query = "-(RT) AND" if ignore_rt else ""
 
         return f"{language_query} {links_query} {ignore_rt_query} ({keywords_query})"
+
+    def get_followers(self):
+        self.followers = self.api.followers_ids()
+
+    def check_follow_back(self, username):
+        try:
+            return self.api.get_user(username).id in self.followers
+        except:
+            print(f"Error getting user: {username}")
+            return True

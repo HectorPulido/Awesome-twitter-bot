@@ -15,6 +15,9 @@ def run():
     search_follow_tweets = "SEARCH_FOLLOW_TWEETS"
     search_follow_tweets_data = {"groups": 1, "select": 10}
 
+    users_to_follow = "FOLLOW_BACK"
+    users_to_follow_data = {"check_time_days": 7, "users_to_check": 20}
+
     twitter_config = "TWITTER_CONFIG"
     twitter_config_data = {
         "sleep_time": 5,
