@@ -28,10 +28,10 @@ def run():
 
     bot.get_followers()
 
-    users_to_unfollow = []
-
     for user in check_follow_back:
         if not bot.check_follow_back(user.user_profile):
-            users_to_unfollow.append(user)
-
-    bot.unfollow(users_to_unfollow)
+            user.followed = False
+            user.must_follow = False
+            user.must_like = False
+            user.must_rt = False
+            user.save()
