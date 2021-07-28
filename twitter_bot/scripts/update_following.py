@@ -17,5 +17,6 @@ def run():
     )
     must_follow = User.objects.filter(must_follow=True, followed=False)
     bot.follow(must_follow)
+
     must_unfollow = User.objects.filter(must_follow=False, followed=True)
     bot.unfollow(must_unfollow)

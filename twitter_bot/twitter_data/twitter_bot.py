@@ -83,6 +83,8 @@ class TwitterBot:
         for user in users:
             user_profile = user.user_profile
             user.followed = False
+            user.like_count = 0
+            user.retweet_count = 0
             user.save()
 
             if not user_profile.startswith("@"):
