@@ -60,3 +60,12 @@ class Feature(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Webhook(models.Model):
+    name = models.CharField(max_length=100, unique=True, db_index=True)
+    enabled = models.BooleanField(default=False)
+    private_key = models.TextField()
+
+    def __str__(self):
+        return self.name

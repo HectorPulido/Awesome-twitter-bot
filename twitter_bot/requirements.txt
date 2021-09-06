@@ -4,4 +4,5 @@ gunicorn==20.0.4
 whitenoise==5.2.0
 tweepy==3.10.0
 django-extensions==3.1.1
+djangorestframework==3.12.4
 dropbox

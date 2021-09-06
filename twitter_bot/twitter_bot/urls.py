@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import test
+from .views import WebhookViewSet
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("test/", test, name="test"),
+    path("peque-admin/", admin.site.urls),
+    path("hook/<str:name>/", WebhookViewSet.as_view(), name="webhook"),
 ]
