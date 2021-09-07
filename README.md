@@ -67,17 +67,12 @@ heroku run python manage.py createsuperuser -a <herokuname>
 
 8. Enter to your proyect from this url
 ```
-http://<herokuname>.herokuapp.com/admin
+http://<herokuname>.herokuapp.com/peque-admin
 ```
 
-9. Enter to your proyect from this url
-```
-http://<herokuname>.herokuapp.com/admin
-```
+9. Log in and configure your interest topics and interest users
 
-10. Log in and configure your interest topics and interest users
-
-11. You can try this commands
+10. You can try this commands
 ```
 heroku run python manage.py runscript update_following -a <herokuname>
 heroku run python manage.py runscript search_follow_tweets -a <herokuname>
@@ -87,9 +82,9 @@ heroku run python manage.py runscript clear_tweets -a <herokuname>
 heroku run python manage.py runscript auto_follow -a <herokuname>
 ```
 
-12. Configure your scheduler with those commands
+11. Configure your scheduler with those commands
 
-13. You are ready
+12. You are ready
 
 
 ## More interesting projects
