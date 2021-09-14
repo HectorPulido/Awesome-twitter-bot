@@ -133,8 +133,14 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATIC_URL = "/static/"
 
-CONSUMER_KEY = os.environ.get("CONSUMER_KEY", default="foo")
-CONSUMER_SECRET = os.environ.get("CONSUMER_SECRET", default="foo")
-ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN", default="foo")
-ACCESS_TOKEN_SECRET = os.environ.get("ACCESS_TOKEN_SECRET", default="foo")
+CONSUMER_KEY = os.environ.get("CONSUMER_KEY", default="xOgALXZXL6RgrA2b71nNx2A6H")
+CONSUMER_SECRET = os.environ.get(
+    "CONSUMER_SECRET", default="SWozuTEgAMiNqwaJno5FmAhHvf87ojuFAAOmNXn4q6DtxfbOjf"
+)
+ACCESS_TOKEN = os.environ.get(
+    "ACCESS_TOKEN", default="1377810525845880840-i8eEY8brSHavGPYD7lwuO4k99JDE3E"
+)
+ACCESS_TOKEN_SECRET = os.environ.get(
+    "ACCESS_TOKEN_SECRET", default="jrYlDthx9keQg3xEIPOIDMs6ZDNUQTmrGYMo9xMnLnR4I"
+)
 ACCESS_TOKEN_DROPBOX = os.environ.get("ACCESS_TOKEN_DROPBOX", default="foo")

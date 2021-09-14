@@ -7,9 +7,9 @@ from django.conf import settings
 
 
 def run():
-    feature_config = json.loads(Feature.objects.get(name="TWEETS_TO_DELETE").value)
+    feature_config = Feature.get_feature("TWEETS_TO_DELETE")
 
-    tweets = Tweet.objects.all()
+    tweets = Tweet.objects.filter(replied=False)
     if len(tweets) < feature_config.get("count", 5000):
         return
 

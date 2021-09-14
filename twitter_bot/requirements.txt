@@ -5,4 +5,5 @@ whitenoise==5.2.0
 tweepy==3.10.0
 django-extensions==3.1.1
 djangorestframework==3.12.4
+request==2.26.0
 dropbox

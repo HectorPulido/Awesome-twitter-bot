@@ -5,11 +5,12 @@ from twitter_data.twitter_bot import TwitterBot
 
 
 def run():
-    feature_config = json.loads(Feature.objects.get(name="TWITTER_CONFIG").value)
+    feature_config = Feature.get_feature("TWITTER_CONFIG")
     sleep_time = feature_config.get("sleep_time", 1)
     search_ignore_rt = feature_config.get("search_ignore_rt", True)
     result_type = feature_config.get("result_type", "recent")
     lang = feature_config.get("lang", "es")
+    max_hashtags = feature_config.get("max_hashtags", 4)
 
     bot = TwitterBot(
         settings.CONSUMER_KEY,
@@ -50,6 +51,14 @@ def run():
     topics_tweets_to_retweet = bot.search_tweets(
         topics_queries_to_retweet, search_ignore_rt, result_type, lang
     )
+
+    for tweet in topics_tweets_to_like:
+        if tweet.text.count("#") > max_hashtags:
+            topics_tweets_to_like.remove(tweet)
+
+    for tweet in topics_tweets_to_retweet:
+        if tweet.text.count("#") > max_hashtags:
+            topics_tweets_to_retweet.remove(tweet)
 
     print(
         f"Tweets: must_like {len(topics_tweets_to_like)}, must_retweet {len(topics_tweets_to_retweet)}"

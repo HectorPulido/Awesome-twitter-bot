@@ -6,10 +6,10 @@ from datetime import datetime, timedelta
 
 
 def run():
-    feature_config = json.loads(Feature.objects.get(name="TWITTER_CONFIG").value)
+    feature_config = Feature.get_feature("TWITTER_CONFIG")
     sleep_time = feature_config.get("sleep_time", 1)
 
-    feature_config = json.loads(Feature.objects.get(name="FOLLOW_BACK").value)
+    feature_config = Feature.get_feature("FOLLOW_BACK")
     check_time_days = int(feature_config.get("check_time_days", 7))
     users_to_check = int(feature_config.get("users_to_check", 20))
 

@@ -23,28 +23,45 @@ class TwitterBot:
     def sent_twit(self, twit_text):
         self.api.update_status(twit_text)
 
+    def respond_twit(self, tweet, twit_text):
+        self.api.update_status(
+            status=twit_text,
+            in_reply_to_status_id=tweet.tweet_id,
+            auto_populate_reply_metadata=True,
+        )
+        tweet.replied = True
+        tweet.save()
+
+    def process_tweets(self, tweets, ignore_rt, extend=False):
+        twits = []
+        for tweet in tweets:
+            if ignore_rt and tweet.text.startswith("RT"):
+                continue
+
+            user = User.objects.get_or_create(
+                user_profile=tweet.author.screen_name.lower()
+            )[0]
+
+            if user.ignore:
+                continue
+
+            if extend and not tweet.text.startswith("RT"):
+                tweet = self.api.get_status(tweet.id, tweet_mode="extended")
+                tweet.text = tweet.full_text
+
+            twit = Tweet.get_or_save_tweet(tweet, user)
+
+            twits.append(twit)
+        return twits
+
     def search_tweets(self, queries, ignore_rt=True, result_type="recent", lang="es"):
         twits = []
         for query in queries:
             tweets = self.api.search(query, result_type=result_type, lang=lang)
-            for tweet in tweets:
-                if ignore_rt and tweet.text.startswith("RT"):
-                    continue
 
-                user = User.objects.get_or_create(
-                    user_profile=tweet.author.screen_name.lower()
-                )[0]
+            temp_twits = self.process_tweets(tweets, ignore_rt)
+            twits = twits + temp_twits
 
-                if user.ignore:
-                    continue
-
-                twit = Tweet.objects.get_or_create(
-                    tweet_id=tweet.id,
-                    text=tweet.text,
-                    user=user,
-                )[0]
-
-                twits.append(twit)
             time.sleep(self.sleep_time)
 
         return twits
@@ -160,3 +177,10 @@ class TwitterBot:
         except:
             print(f"Error getting user: {username}")
             return True
+
+    def get_mentions(self):
+        statuses = self.api.mentions_timeline()
+
+        twits = self.process_tweets(statuses, True, True)
+
+        return twits

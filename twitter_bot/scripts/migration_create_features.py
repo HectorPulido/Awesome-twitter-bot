@@ -24,6 +24,7 @@ def run():
         "search_ignore_rt": True,
         "result_type": "recent",
         "lang": "es",
+        "max_hashtags": 4,
     }
 
     Feature.objects.create(name=users_to_delete, value=json.dumps(users_to_delete_data))

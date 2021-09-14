@@ -10,10 +10,11 @@ class TopicsAdmin(admin.ModelAdmin):
 
 
 class TweetsAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_display = ("text", "user", "retweeted", "liked", "go_to_tweet")
+    list_display = ("text", "user", "retweeted", "liked", "replied", "go_to_tweet")
     list_filter = (
         "retweeted",
         "liked",
+        "replied",
     )
     search_fields = ["user__user_profile", "text"]
     actions = ["export_as_csv_response"]

@@ -1,3 +1,4 @@
+import json
 from django.db import models
 
 
@@ -27,7 +28,19 @@ class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     retweeted = models.BooleanField(default=False)
     liked = models.BooleanField(default=False)
+    replied = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @staticmethod
+    def get_or_save_tweet(tweet, user):
+        twit = Tweet.objects.get_or_create(
+            tweet_id=tweet.id,
+            user=user,
+        )[0]
+
+        twit.text = tweet.text
+        twit.save()
+        return twit
 
     def __str__(self):
         return self.text
@@ -57,6 +70,13 @@ class Topic(models.Model):
 class Feature(models.Model):
     name = models.CharField(max_length=100, unique=True, db_index=True)
     value = models.TextField()
+
+    @staticmethod
+    def get_feature(name):
+        feature = Feature.objects.filter(name=name).last()
+        if not feature:
+            return None
+        return json.loads(feature.value)
 
     def __str__(self):
         return self.name

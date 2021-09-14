@@ -5,7 +5,7 @@ from twitter_data.twitter_bot import TwitterBot
 
 
 def run():
-    feature_config = json.loads(Feature.objects.get(name="TWITTER_CONFIG").value)
+    feature_config = Feature.get_feature("TWITTER_CONFIG")
     sleep_time = feature_config.get("sleep_time", 1)
 
     bot = TwitterBot(

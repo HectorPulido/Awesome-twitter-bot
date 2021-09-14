@@ -6,7 +6,7 @@ from twitter_data.models import User, Feature
 
 
 def run():
-    feature_config = json.loads(Feature.objects.get(name="TWITTER_CONFIG").value)
+    feature_config = Feature.get_feature("TWITTER_CONFIG")
     sleep_time = feature_config.get("sleep_time", 1)
 
     bot = TwitterBot(
@@ -17,7 +17,7 @@ def run():
         sleep_time,
     )
 
-    feature_config = json.loads(Feature.objects.get(name="SEARCH_FOLLOW_TWEETS").value)
+    feature_config = Feature.get_feature("SEARCH_FOLLOW_TWEETS")
     user_groups = feature_config.get("groups", 5)
     user_to_select = feature_config.get("select", 5)
 

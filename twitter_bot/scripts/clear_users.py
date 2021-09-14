@@ -7,7 +7,7 @@ from django.conf import settings
 
 
 def run():
-    feature_config = json.loads(Feature.objects.get(name="USERS_TO_DELETE").value)
+    feature_config = Feature.get_feature("USERS_TO_DELETE")
 
     users = User.objects.filter(
         followed=False,
